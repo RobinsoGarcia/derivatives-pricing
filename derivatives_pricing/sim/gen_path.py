@@ -11,14 +11,14 @@ td = datetime.today()
 #np.busday_count(datetime.today(), of)
 
 def gen_path(symbol,start,end=None,vol=0,T=1,N=800,n=100):
-    #print('Number of time steps: {}'.format(N))
-    #print('Number of simulations: {}'.format(n))
+    print('Number of time steps: {}'.format(N))
+    print('Number of simulations: {}'.format(n))
     S,beta,_ = soup.get_quote(symbol)
 
     rf = rate.get_rate()
 
     if vol==0:
-        start = np.busday_offset(td,-252*5,roll="modifiedpreceding").astype(datetime)
+        start = np.busday_offset(td,-252*2,roll="modifiedpreceding").astype(datetime)
         start = (start.year,start.month,start.day)
         stock_hist,returns,std = quandl.get_quotes(symbol,start_date=start,end_date=None)
 
