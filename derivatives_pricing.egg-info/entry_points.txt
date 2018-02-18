@@ -1,0 +1,3 @@
+[console_scripts]
+optvalue = derivatives_pricing.get_values:main
+

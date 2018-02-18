@@ -30,11 +30,13 @@ def get_path(S0,vol,rf,T,N,n):
 
     results = np.empty((N+1,n))
     results[0] = S0
-
+    time = []
     for i in np.arange(N)+1:
         results[i,:] = f(results[i-1])
+        time.append(dt)
 
     mean_value = np.mean(results,axis=1)
+    time =np.cumsum(np.array(time))
 
 
-    return mean_value,results
+    return mean_value,time,results
