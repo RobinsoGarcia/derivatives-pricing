@@ -1,4 +1,5 @@
 MANIFEST.in
+setup.py
 derivatives_pricing/__init__.py
 derivatives_pricing/create_json.py
 derivatives_pricing/get_values.py

@@ -3,27 +3,25 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import norm
 from datetime import datetime
-import pandas as pd
 td = datetime.today()
 
 class derivative():
     def __init__(self,symbol,strike,maturity,type_='european'):
         self.symbol = symbol
         self.K = strike
+        self.T = maturity
         self.type_ = type_
-        print("dd")
-        self.T = int(np.busday_count(datetime.today(), pd.Timestamp(maturity)))/252
 
     def price(self,vol=0,N=500,n=100):
         self.s,self.t,self.r,self.std,results = gp.gen_path(symbol=self.symbol,
-        start=(td.year,td.month,td.day),T=self.T,vol=vol,N=N,n=n)
+        start=(td.year,td.month,td.day),end=self.T,vol=vol,N=N,n=n)
         value = np.mean(self.f(results),axis=1)
         dc = np.exp(-1*self.r*self.t)
         self.price_series = np.multiply(dc,value[1:])
         if self.type_ == 'european':
             v = self.price_series[-1]
             if self.check_BS==1:
-                BS_value = BS(S=self.s[0],K=self.K,r=self.r,std=self.std,t=self.T,option_type=self.option_type1)
+                BS_value = BS(self.s[0],self.K,self.r,self.std,self.T,option_type=self.option_type1)
                 error = v - BS_value
                 print('MC result: {}'.format(v))
                 print('BS minus MC = {}'.format(error))

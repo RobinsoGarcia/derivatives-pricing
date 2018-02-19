@@ -29,8 +29,8 @@ def main(args=None):
     price = []
     for x in securities:
         if securities[x][3]=='call':
-
-            c = dv.call(securities[x][0],securities[x][1],securities[x][2],type_=securities[x][4])
+            t = np.busday_count(date.today(), pd.Timestamp(securities[x][2]))
+            c = dv.call(securities[x][0],securities[x][1],int(t)/252.0,type_=securities[x][4])
             v,r = c.price(N=N,n=n)
             value.append(v)
             error.append(r)
@@ -43,7 +43,7 @@ def main(args=None):
 
         elif securities[x][3]=='put':
             t = np.busday_count(date.today(), pd.Timestamp(securities[x][2]))
-            p = dv.put(securities[x][0],securities[x][1],securities[x][2],type_=securities[x][4])
+            p = dv.put(securities[x][0],securities[x][1],int(t)/252.0,type_=securities[x][4])
             v,r = p.price(N=N,n=n)
             value.append(v)
             error.append(r)
