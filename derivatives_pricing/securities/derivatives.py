@@ -38,7 +38,7 @@ class derivative():
         pass
 
     def get_current_data(self,gm=1):
-        S,beta,_ = soup.get_quote(self.symbol)
+        #S,beta,_ = soup.get_quote(self.symbol)
         rf = rate.get_rate()
         start = np.busday_offset(td,-252*self.std_horiz,roll="modifiedpreceding").astype(datetime)
         start = (start.year,start.month,start.day)
@@ -53,10 +53,10 @@ class derivative():
         print("Summary of past returns for "+self.symbol)
         print(pd.Series(returns).describe())
         print('std: {}'.format(std))
-        print('stock price: {}'.format(S))
+        print('stock price: {}'.format(stock_hist[-1]))
         self.std = std
-        self.S0 = S
-        self.beta = beta
+        self.S0 = stock_hist[-1]
+        #self.beta = beta
         self.rf = rf
         pass
 
