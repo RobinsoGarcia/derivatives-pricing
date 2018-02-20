@@ -31,25 +31,29 @@ def main(args=None):
         if securities[x][3]=='call':
 
             c = dv.call(securities[x][0],securities[x][1],securities[x][2],type_=securities[x][4])
-            v,r = c.price(N=N,n=n)
+            c.N = N
+            c.n = n
+            v,r = c.price()
             value.append(v)
             error.append(r)
             stds.append(c.std)
-            rf.append(c.r)
-            price.append(c.s[0])
+            rf.append(c.rf)
+            price.append(c.S0)
             #plt.title(str(securities[x]))
             #plt.plot(c.t,c.s[1:])
             #plt.show()
 
         elif securities[x][3]=='put':
-            t = np.busday_count(date.today(), pd.Timestamp(securities[x][2]))
+
             p = dv.put(securities[x][0],securities[x][1],securities[x][2],type_=securities[x][4])
-            v,r = p.price(N=N,n=n)
+            p.N = N
+            p.n = n
+            v,r = p.price()
             value.append(v)
             error.append(r)
             stds.append(p.std)
-            rf.append(p.r)
-            price.append(p.s[0])
+            rf.append(p.rf)
+            price.append(p.S0)
             #plt.title(str(securities[x]))
             #plt.plot(p.t,p.s[1:])
             #plt.show()

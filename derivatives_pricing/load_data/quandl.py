@@ -8,7 +8,7 @@ except ImportError:
 
 import numpy as np
 
-def get_quotes(symbols, start_date=(2016, 1, 1), end_date=None):
+def get_quotes(symbols, start_date, end_date=None):
 
     data = mq.get_quotes(symbols, start_date, end_date=None)
     close = [x for x in data.columns if 'Close' in x][0]

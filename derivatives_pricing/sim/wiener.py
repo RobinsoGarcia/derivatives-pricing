@@ -1,25 +1,13 @@
 import numpy as np
 
+def eoption_value(S0,vol,rf,T,n):
+        mu = rf-(0.5*vol**2)*T
+        sigma = np.sqrt(T)*vol**2
+        return S0*np.exp(sigma*np.random.randn(n)+mu)
+
+
 def get_path(S0,vol,rf,T,N,n):
-    '''
-    S0
-    vol
-    rf
-    N - number of time steps
-    n - number of simulations
 
-
-    dt = T/N
-    mu = np.log(S0)+(rf-0.5*vol**2)*dt
-    sigma = dt*vol**2
-
-    results = np.random.normal(mu,sigma)[np.newaxis,:]
-    for x in np.arange(n-1):
-        results = np.vstack((results,np.random.normal(mu,sigma)[np.newaxis,:]))
-
-    mean_value = np.mean(results,axis=0)
-
-    '''
     dt = T/N
 
     drift = (rf-0.5*vol**2)*dt
@@ -37,6 +25,5 @@ def get_path(S0,vol,rf,T,N,n):
 
     mean_value = np.mean(results,axis=1)
     time =np.cumsum(np.array(time))
-
 
     return mean_value,time,results
