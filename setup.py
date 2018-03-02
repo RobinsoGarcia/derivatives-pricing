@@ -34,6 +34,7 @@ setup(name='derivatives_pricing',
           'matplotlib>=2.1.2',
           'pandas_datareader>=0.5.0',
           'beautifulsoup4>=4.6.0',
-          'yahoo-finance>=1.4.0'
+          'yahoo-finance>=1.4.0',
+          'scipy>=1.0.0'
       ]
       )

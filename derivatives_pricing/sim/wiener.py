@@ -22,6 +22,7 @@ def get_path(S0,vol,rf,T,N,n):
     for i in np.arange(N)+1:
         results[i,:] = f(results[i-1])
         time.append(dt)
+    results = results[:-1,:]
 
     mean_value = np.mean(results,axis=1)
     time =np.cumsum(np.array(time))

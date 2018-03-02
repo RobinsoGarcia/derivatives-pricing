@@ -37,7 +37,7 @@ class derivative():
         self.pv = np.multiply(dc,self.value[1:])
         pass
 
-    def get_current_data(self,gm=1):
+    def get_current_data(self,gm=0):
         #S,beta,_ = soup.get_quote(self.symbol)
         rf = rate.get_rate()
         start = np.busday_offset(td,-252*self.std_horiz,roll="modifiedpreceding").astype(datetime)
@@ -110,7 +110,7 @@ class put(derivative):
         return np.maximum(self.K-S,0)
 
 def BS(S,K,r,std,t,option_type):
-    d1 = (np.log(S/K)+(r+std/2)*t)/(std*np.sqrt(t))
+    d1 = (np.log(S/K)+(r+(std**2)/2)*t)/(std*np.sqrt(t))
     d2 = d1-std*np.sqrt(t)
     if option_type=='call':
         N1 = norm.cdf(d1)
