@@ -34,13 +34,12 @@ class derivative():
         self.value = np.mean(self.f(self.results),axis=1)
         print(self.value[-1])
         dc = np.exp(-1*self.rf*self.time)
-        self.pv = np.multiply(dc,self.value[1:])
+        self.pv = np.multiply(dc,self.value)
         pass
 
     def get_current_data(self,gm=0):
-        #S,beta,_ = soup.get_quote(self.symbol)
         rf = rate.get_rate()
-        start = np.busday_offset(td,-252*self.std_horiz,roll="modifiedpreceding").astype(datetime)
+        start = np.busday_offset(td,-252*5*self.std_horiz,roll="modifiedpreceding").astype(datetime)
         start = (start.year,start.month,start.day)
         stock_hist,returns,std = quandl.get_quotes(self.symbol,start_date=start,end_date=None)
         std = std*np.sqrt(252)
@@ -68,11 +67,11 @@ class derivative():
             v0 = 0
             n=100
             count = 0
-            _,_,results= wiener.get_path(S0=self.S0,vol=self.std,rf=self.rf,T=self.T,N=1,n=n)
+            _,_,results= wiener.get_path(S0=self.S0,vol=self.std,rf=self.rf,T=self.T,N=self.N,n=self.n)
             v1 = np.mean(self.f(results[-1]))*np.exp(-self.T*self.rf) #at present value
             while np.abs(v1-v0) > 0.001:
                 v0 = v1
-                _,_,results= wiener.get_path(S0=self.S0,vol=self.std,rf=self.rf,T=self.T,N=1,n=n)
+                _,_,results= wiener.get_path(S0=self.S0,vol=self.std,rf=self.rf,T=self.T,N=self.N,n=self.n)
                 v1 = np.mean(self.f(results[-1]))*np.exp(-self.T*self.rf) #at present value
                 n *= 10
                 count += 1
@@ -87,6 +86,7 @@ class derivative():
                 print('MC result: {}'.format(v))
                 print('BS minus MC = {}'.format(error))
         if self.type_ == 'american':
+            self.build_path()
             v = np.max(self.pv)
             error = 'nan'
         return v,error
