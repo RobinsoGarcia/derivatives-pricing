@@ -1,1 +1,0 @@
-my quandl access

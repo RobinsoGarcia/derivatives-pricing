@@ -1,4 +1,4 @@
-import derivatives_pricing.load_data.quandl as quandl
+import derivatives_pricing.load_data.get_quandl as quandl
 import derivatives_pricing.load_data.soup_quote as soup
 import derivatives_pricing.load_data.rf as rate
 import derivatives_pricing.sim.wiener as wiener

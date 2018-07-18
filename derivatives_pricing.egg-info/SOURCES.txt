@@ -2,6 +2,7 @@ MANIFEST.in
 README.md
 setup.py
 derivatives_pricing/__init__.py
+derivatives_pricing/build_dataset_quandl.py
 derivatives_pricing/create_json.py
 derivatives_pricing/get_values.py
 derivatives_pricing/iv.py
@@ -13,11 +14,9 @@ derivatives_pricing.egg-info/not-zip-safe
 derivatives_pricing.egg-info/requires.txt
 derivatives_pricing.egg-info/top_level.txt
 derivatives_pricing/load_data/__init__.py
-derivatives_pricing/load_data/experimental_soup.py
-derivatives_pricing/load_data/quandl.py
+derivatives_pricing/load_data/get_quandl.py
 derivatives_pricing/load_data/rf.py
 derivatives_pricing/load_data/soup_quote.py
-derivatives_pricing/load_data/yahoo.py
 derivatives_pricing/securities/derivatives.py
 derivatives_pricing/sim/gen_path.py
 derivatives_pricing/sim/wiener.py

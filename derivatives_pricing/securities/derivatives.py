@@ -2,8 +2,8 @@ import derivatives_pricing.sim.gen_path as gp
 from derivatives_pricing.securities import derivatives as dv
 import derivatives_pricing.sim.wiener as wiener
 
-import derivatives_pricing.load_data.quandl as quandl
-import derivatives_pricing.load_data.soup_quote as soup
+import derivatives_pricing.load_data.get_quandl as quandl
+#import derivatives_pricing.load_data.soup_quote as soup
 import derivatives_pricing.load_data.rf as rate
 import matplotlib.pyplot as plt
 import numpy as np
@@ -26,8 +26,6 @@ class derivative():
         self.init_data()
         self.N = 500
         self.n = 300
-
-
 
     def build_path(self):
         self.series,self.time,self.results = wiener.get_path(S0=self.S0,vol=self.std,rf=self.rf,T=self.T,N=self.N,n=self.n)
