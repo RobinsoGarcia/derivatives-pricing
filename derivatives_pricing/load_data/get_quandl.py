@@ -3,7 +3,7 @@ import quandl
 import datetime
 import numpy as np
 
-quandl.ApiConfig.api_key = '2EU8NGdTxuAwzAQ5cRjh'
+quandl.ApiConfig.api_key = 'API key'
 
 def get_from_quandl(symbol, start_date=(2000, 1, 1), end_date=None):
     """
