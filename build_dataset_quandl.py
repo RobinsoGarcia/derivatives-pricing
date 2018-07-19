@@ -4,7 +4,7 @@ import pandas as pd
 import argparse
 #https://chrisconlan.com/download-historical-stock-data-google-r-python/
 
-quandl.ApiConfig.api_key = '2EU8NGdTxuAwzAQ5cRjh'
+quandl.ApiConfig.api_key = 'API key'
 
 def get_from_quandl(symbol, start_date=(2000, 1, 1), end_date=None):
     """
