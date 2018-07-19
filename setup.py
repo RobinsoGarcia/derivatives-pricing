@@ -2,20 +2,17 @@ from setuptools import setup,find_packages
 from setuptools.command.install import install
 
 setup(name='derivatives_pricing',
-      version='0',
+      version='1.0',
       description='script to evaluate the price of different derivatives',
-      url='https://github.com/RobinsoGarcia/PortfolioOptimization',
+      url='https://github.com/RobinsoGarcia/derivatives-pricing',
       author='Robinson Garcia',
       author_email='rlsg.mec@hotmail.com',
       license='MIT',
-      entry_points={'console_scripts':['optvalue = derivatives_pricing.get_values:main']},
-      scripts=['derivatives_pricing/scripts/options_pricing.py']
+      scripts=['derivatives_pricing/scripts/options_pricing.py'],
       include_package_data=True,
       packages=find_packages(),
-      '''['derivatives_pricing','derivatives_pricing.sim','derivatives_pricing.load_data',
-      'derivatives_pricing.securities']'''
+      package_data={'derivatives_pricing':['scripts/*']},
       zip_safe=False,
-      cmdclass={'install':adjustments},
       install_requires=[
           'Quandl>=3.3.0',
           'numpy>=1.14.0',

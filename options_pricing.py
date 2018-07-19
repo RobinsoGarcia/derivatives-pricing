@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 from derivatives_pricing.sim.wiener import *
 import matplotlib.pyplot as plt
 from derivatives_pricing.securities.derivatives import *
