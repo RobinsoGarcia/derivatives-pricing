@@ -17,6 +17,8 @@ start = np.busday_offset(td,-252*5,roll="modifiedpreceding").astype(datetime)
 class derivative():
     def __init__(self,symbol,strike,maturity,type_='european',check_BS=1):
         self.symbol = symbol
+        self.precision = 1e-3
+        self.iter = 5
         self.K = strike
         self.type_ = type_
         self.T = int(np.busday_count(datetime.today(), pd.Timestamp(maturity)))/252
@@ -24,8 +26,8 @@ class derivative():
         self.std_horiz = 3
         self.get_current_data()
         self.init_data()
-        self.N = 500
-        self.n = 300
+        self.N = 10000
+        self.n = 10000
 
     def build_path(self):
         self.series,self.time,self.results = wiener.get_path(S0=self.S0,vol=self.std,rf=self.rf,T=self.T,N=self.N,n=self.n)
@@ -37,7 +39,7 @@ class derivative():
 
     def get_current_data(self,gm=0):
         rf = rate.get_rate()
-        start = np.busday_offset(td,-252*5*self.std_horiz,roll="modifiedpreceding").astype(datetime)
+        start = np.busday_offset(td,-252*self.std_horiz,roll="modifiedpreceding").astype(datetime)
         start = (start.year,start.month,start.day)
         stock_hist,returns,std = quandl.get_quotes(self.symbol,start_date=start,end_date=None)
         std = std*np.sqrt(252)
@@ -67,14 +69,14 @@ class derivative():
             count = 0
             _,_,results= wiener.get_path(S0=self.S0,vol=self.std,rf=self.rf,T=self.T,N=self.N,n=self.n)
             v1 = np.mean(self.f(results[-1]))*np.exp(-self.T*self.rf) #at present value
-            while np.abs(v1-v0) > 0.001:
+            while np.abs(v1-v0) > self.precision:
                 v0 = v1
                 _,_,results= wiener.get_path(S0=self.S0,vol=self.std,rf=self.rf,T=self.T,N=self.N,n=self.n)
                 v1 = np.mean(self.f(results[-1]))*np.exp(-self.T*self.rf) #at present value
                 n *= 10
                 count += 1
                 print("iteration:",count,":",v1)
-                if count > 5:
+                if count > self.iter:
                     break
             v=v1
             if self.check_BS==1:
@@ -102,6 +104,7 @@ class call(derivative):
 class put(derivative):
     def init_data(self):
         self.option_type1 = 'put'
+        self.check_BS = 1
         print('Type of derivative: {}'.format(self.option_type1))
 
     def f(self,S):

@@ -2,9 +2,6 @@ MANIFEST.in
 README.md
 setup.py
 derivatives_pricing/__init__.py
-derivatives_pricing/build_dataset_quandl.py
-derivatives_pricing/create_json.py
-derivatives_pricing/get_values.py
 derivatives_pricing/iv.py
 derivatives_pricing.egg-info/PKG-INFO
 derivatives_pricing.egg-info/SOURCES.txt

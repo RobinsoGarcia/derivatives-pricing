@@ -1,4 +1,4 @@
-import derivatives_pricing.load_data.get_quandl as quandl
+import derivatives_pricing.load_data.get_quandl as gq
 import derivatives_pricing.load_data.soup_quote as soup
 import derivatives_pricing.load_data.rf as rate
 import derivatives_pricing.sim.wiener as wiener
@@ -21,7 +21,7 @@ def gen_path(symbol,start,end=None,vol=0,T=1,N=800,n=100):
         start = np.busday_offset(td,-252*2,roll="modifiedpreceding").astype(datetime)
         print("volatility: std of the stock returns for the past two years")
         start = (start.year,start.month,start.day)
-        stock_hist,returns,std = quandl.get_quotes(symbol,start_date=start,end_date=None)
+        stock_hist,returns,std = gq.get_quotes(symbol,start_date=start,end_date=None)
     print('daily std: {}'.format(std))
 
     std = std*np.sqrt(252)
